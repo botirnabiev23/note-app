@@ -73,50 +73,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: CustomScrollView(
         slivers: [
-          // BlocBuilder<NoteBloc, NoteState>(
-          //   builder: (context, state) {
-          //     print('Current state: $state');
-          //     if (state is NoteListUpdated && state.notes.isNotEmpty) {
-          //       return SliverList(
-          //         delegate: SliverChildBuilderDelegate(
-          //           (context, index) {
-          //             final note = state.notes[index];
-          //             return NoteItem(
-          //               title: note['title'] ?? 'No title',
-          //               subtitle: note['subtitle'] ?? 'No subtitle',
-          //             );
-          //           },
-          //           childCount: notes.length,
-          //         ),
-          //       );
-          //     }
-          //     return SliverToBoxAdapter(
-          //       child: Center(
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             InkWell(
-          //               onTap: () {
-          //                 context.go('/addNotePage');
-          //               },
-          //               splashColor: Colors.transparent,
-          //               child: Ink(
-          //                 child: Image(
-          //                   image: AssetImage('assets/images/add_note.png'),
-          //                 ),
-          //               ),
-          //             ),
-          //             const SizedBox(height: 16),
-          //             const Text(
-          //               'Create your first note!',
-          //               style: TextStyle(fontSize: 20),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ),
           BlocBuilder<NoteBloc, NoteState>(
             builder: (context, state) {
               if (state is NoteListUpdated) {
@@ -125,7 +81,9 @@ class _HomePageState extends State<HomePage> {
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        return NoteItem(text: notes[index]);
+                        return NoteItem(
+                          note: notes[index],
+                        );
                       },
                       childCount: notes.length,
                     ),
@@ -176,26 +134,48 @@ class _HomePageState extends State<HomePage> {
 }
 
 class NoteItem extends StatelessWidget {
-  final String text;
+  final Note note;
 
-  const NoteItem({super.key, required this.text});
+  const NoteItem({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12),
+    return InkWell(
+      onTap: () {
+        context.go(
+          '/editNotePage',
+          extra: {'title': note.title, 'subtitle': note.subtitle},
+        );
+      },
+      child: Ink(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+            color: note.color,
+          ),
+          child: Text(
+            note.title,
+            style: const TextStyle(color: Colors.black, fontSize: 24),
+          ),
         ),
-        color: Colors.grey,
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.black, fontSize: 24),
       ),
     );
   }
+}
+
+class Note {
+  final String title;
+  final String subtitle;
+  final Color color;
+
+  Note({
+    required this.title,
+    required this.subtitle,
+    this.color = Colors.grey,
+  });
 }

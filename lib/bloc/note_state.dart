@@ -5,7 +5,10 @@ abstract class NoteState {}
 final class NoteInitial extends NoteState {}
 
 class NoteListUpdated extends NoteState {
-  final List<String> notes;
+  final List<Note> notes;
 
   NoteListUpdated(this.notes);
+
+  @override
+  String toString() => 'NoteListUpdated(notes: $notes)';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
 import 'package:note_app/pages/add_note_page.dart';
+import 'package:note_app/pages/edit_page.dart';
 import 'package:note_app/pages/home_page.dart';
 import 'package:note_app/pages/profile_page.dart';
 import 'package:note_app/pages/search_page.dart';
@@ -40,6 +41,15 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/profilePage',
         builder: (context, state) => ProfilePage(),
+      ),
+      GoRoute(
+        path: '/editNotePage',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>? ?? {};
+          final String title = extra['title'] ?? '';
+          final String subtitle = extra['subtitle'] ?? '';
+          return EditNotePage(initialTitle: title, initialSubtitle: subtitle);
+        },
       ),
     ],
   );
