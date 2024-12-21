@@ -45,10 +45,15 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/editNotePage',
         builder: (context, state) {
-          final extra = state.extra as Map<String, String>? ?? {};
+          final extra = state.extra as Map<String, dynamic>? ?? {};
           final String title = extra['title'] ?? '';
           final String subtitle = extra['subtitle'] ?? '';
-          return EditNotePage(initialTitle: title, initialSubtitle: subtitle);
+          final Color color = extra['color'] ?? Colors.grey;
+          return EditNotePage(
+            initialTitle: title,
+            initialSubtitle: subtitle,
+            color: color,
+          );
         },
       ),
     ],

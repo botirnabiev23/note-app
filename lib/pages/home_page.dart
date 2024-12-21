@@ -144,7 +144,11 @@ class NoteItem extends StatelessWidget {
       onTap: () {
         context.go(
           '/editNotePage',
-          extra: {'title': note.title, 'subtitle': note.subtitle},
+          extra: {
+            'title': note.title,
+            'subtitle': note.subtitle,
+            'color': note.color,
+          },
         );
       },
       child: Ink(

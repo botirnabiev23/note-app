@@ -14,6 +14,7 @@ class _AddNotePageState extends State<AddNotePage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController subtitleController = TextEditingController();
   Color selectedColor = Colors.grey;
+  bool isEditing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,53 +42,42 @@ class _AddNotePageState extends State<AddNotePage> {
           ),
         ),
         actions: [
-          InkWell(
-            child: Ink(
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
+          if (isEditing == true)
+            InkWell(
+              onTap: () {
+                final title = titleController.text.trim();
+                final subtitle = subtitleController.text.trim();
+                FocusScope.of(context).unfocus();
+                if (title.isNotEmpty || subtitle.isNotEmpty) {
+                  context.read<NoteBloc>().add(
+                        TextAddedEvent(
+                          title,
+                          subtitle,
+                          selectedColor,
+                        ),
+                      );
+                  setState(() {
+                    isEditing = false;
+                  });
+                }
+              },
+              child: Ink(
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    ),
+                    color: Color(0xff3B3B3B),
                   ),
-                  color: Color(0xff3B3B3B),
-                ),
-                child: Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: Colors.white,
+                  child: Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: 10),
-          InkWell(
-            onTap: () {
-              final title = titleController.text.trim();
-              final subtitle = subtitleController.text.trim();
-              if (title.isNotEmpty || subtitle.isNotEmpty) {
-                context.read<NoteBloc>().add(
-                      TextAddedEvent(title, subtitle, selectedColor),
-                    );
-                context.go('/');
-              }
-            },
-            child: Ink(
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
-                  ),
-                  color: Color(0xff3B3B3B),
-                ),
-                child: Icon(
-                  Icons.save,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
           const SizedBox(width: 10),
         ],
       ),
@@ -96,6 +86,11 @@ class _AddNotePageState extends State<AddNotePage> {
         child: Column(
           children: [
             TextField(
+              onTap: () {
+                setState(() {
+                  isEditing = true;
+                });
+              },
               controller: titleController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
@@ -116,6 +111,11 @@ class _AddNotePageState extends State<AddNotePage> {
             const SizedBox(height: 8),
             Expanded(
               child: TextField(
+                onTap: () {
+                  setState(() {
+                    isEditing = true;
+                  });
+                },
                 controller: subtitleController,
                 style: const TextStyle(
                   fontSize: 18,
@@ -133,19 +133,23 @@ class _AddNotePageState extends State<AddNotePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            const Text('Select Color:', style: TextStyle(fontSize: 18)),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 10,
-              children: [
-                _buildColorOption(Colors.red),
-                _buildColorOption(Colors.green),
-                _buildColorOption(Colors.blue),
-                _buildColorOption(Colors.orange),
-                _buildColorOption(Colors.purple),
-              ],
-            ),
+            if (isEditing)
+              Column(
+                children: [
+                  const Text('Select Color:', style: TextStyle(fontSize: 18)),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 10,
+                    children: [
+                      _buildColorOption(Colors.red),
+                      _buildColorOption(Colors.green),
+                      _buildColorOption(Colors.blue),
+                      _buildColorOption(Colors.orange),
+                      _buildColorOption(Colors.purple),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),
