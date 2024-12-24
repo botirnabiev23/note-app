@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_app/core/services/auth_service/auth_service.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +18,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: InkWell(
           onTap: () {
-            context.go('/');
+            context.go('/home');
           },
           child: Ink(
             child: Container(
@@ -43,6 +51,29 @@ class ProfilePage extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.edit,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          InkWell(
+            onTap: () async {
+              await _authService.logout();
+              context.go('/register');
+            },
+            child: Ink(
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16),
+                  ),
+                  color: Color(0xff3B3B3B),
+                ),
+                child: Icon(
+                  Icons.logout,
                   color: Colors.white,
                 ),
               ),

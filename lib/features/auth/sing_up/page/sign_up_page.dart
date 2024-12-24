@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/bloc/note_bloc.dart';
-import 'package:note_app/pages/auth_pages/sign_in_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:note_app/core/services/auth_service/auth_service.dart';
+import 'package:note_app/features/auth/sign_in/page/sign_in_page.dart';
+import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -13,23 +15,27 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   bool isFalseOne = true;
   bool isFalseTwo = true;
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordControllerOne = TextEditingController();
-  final TextEditingController passwordControllerTwo = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final AuthService _authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeAuthService();
+  }
+
+  Future<void> _initializeAuthService() async {
+    await _authService.init();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-        ),
         backgroundColor: const Color(0xff0F1E31),
       ),
       backgroundColor: Colors.white,
@@ -67,6 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
                       labelText: 'Name',
                       border: OutlineInputBorder(
@@ -86,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
-                    controller: passwordControllerOne,
+                    controller: passwordController,
                     obscureText: isFalseOne,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -107,10 +114,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 20),
                   TextField(
-                    controller: passwordControllerTwo,
+                    controller: confirmPasswordController,
                     obscureText: isFalseTwo,
                     decoration: InputDecoration(
-                      labelText: 'Confirm Password',
+                      labelText: 'Password',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -127,37 +134,71 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  BlocConsumer<SignUpBloc, SignUpState>(
+                    listener: (context, state) {
+                      state.when(
+                        () {},
+                        success: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        },
+                        error: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    builder: (context, state) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final name = nameController.text;
+                            final email = emailController.text;
+                            final password = passwordController.text;
+                            final confirmPassword =
+                                confirmPasswordController.text;
+
+                            context.read<SignUpBloc>().add(
+                                  SignUpEvent.submit(
+                                    name: name,
+                                    email: email,
+                                    password: password,
+                                    confirmPassword: confirmPassword,
+                                  ),
+                                );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
                         ),
-                      ),
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("I have an account? "),
+                      const Text("You have an account?"),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const SignInPage();
-                              },
-                            ),
-                          );
+                          context.go('/login');
                         },
                         style: const ButtonStyle(
                           overlayColor:

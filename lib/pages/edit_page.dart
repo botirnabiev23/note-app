@@ -47,7 +47,7 @@ class _EditNotePageState extends State<EditNotePage> {
       appBar: AppBar(
         title: InkWell(
           onTap: () {
-            context.go('/');
+            context.go('/home');
           },
           child: Ink(
             child: Container(

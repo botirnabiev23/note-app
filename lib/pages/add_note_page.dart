@@ -22,7 +22,7 @@ class _AddNotePageState extends State<AddNotePage> {
       appBar: AppBar(
         title: InkWell(
           onTap: () {
-            context.go('/');
+            context.go('/home');
           },
           child: Ink(
             child: Container(

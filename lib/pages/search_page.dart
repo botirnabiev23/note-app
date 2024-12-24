@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: [
           TextButton(
             onPressed: () {
-              context.go('/');
+              context.go('/home');
             },
             child: Text('Cancel'),
           ),
