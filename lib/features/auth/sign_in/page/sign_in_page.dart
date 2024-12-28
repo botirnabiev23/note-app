@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/core/services/auth_service/auth_service.dart';
-import 'package:note_app/features/auth/sing_up/page/sign_up_page.dart';
+// import 'package:note_app/core/services/auth_service/auth_service.dart';
+import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
+// import 'package:note_app/features/auth/sing_up/page/sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -15,7 +17,7 @@ class _SignInPageState extends State<SignInPage> {
   bool isFalseOne = true;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
+  // final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -100,30 +102,52 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   const Gap(20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final userId = await _authService.getUserId();
-                        if (userId != null) {
-                          context.go('/home', extra: userId);
-                        } else {
+                  BlocListener<SignUpBloc, SignUpState>(
+                    listener: (context, state) {
+                      state.whenOrNull(
+                        () {},
+                        success: (user) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Login failed. Please try again.')),
+                            SnackBar(
+                              content: Text('Welcome, ${user.name}'),
+                            ),
                           );
-                        }
-                      },
+                          context.go('/home');
+                        },
+                        error: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final email = emailController.text;
+                          final password = passwordController.text;
 
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          context.read<SignUpBloc>().add(
+                                SignUpEvent.loginUser(
+                                  email: email,
+                                  password: password,
+                                ),
+                              );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
                       ),
                     ),
                   ),

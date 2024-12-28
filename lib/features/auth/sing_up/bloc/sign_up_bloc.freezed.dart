@@ -22,6 +22,8 @@ mixin _$SignUpEvent {
     required TResult Function(
             String name, String email, String password, String confirmPassword)
         submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +32,8 @@ mixin _$SignUpEvent {
     TResult? Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +42,8 @@ mixin _$SignUpEvent {
     TResult Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -45,18 +51,24 @@ mixin _$SignUpEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,6 +140,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(
             String name, String email, String password, String confirmPassword)
         submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
   }) {
     return started();
   }
@@ -139,6 +153,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
   }) {
     return started?.call();
   }
@@ -150,6 +166,8 @@ class _$StartedImpl implements _Started {
     TResult Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -163,6 +181,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
   }) {
     return started(this);
   }
@@ -172,6 +192,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
   }) {
     return started?.call(this);
   }
@@ -181,6 +203,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -298,6 +322,8 @@ class _$SubmitImpl implements _Submit {
     required TResult Function(
             String name, String email, String password, String confirmPassword)
         submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
   }) {
     return submit(name, email, password, confirmPassword);
   }
@@ -309,6 +335,8 @@ class _$SubmitImpl implements _Submit {
     TResult? Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
   }) {
     return submit?.call(name, email, password, confirmPassword);
   }
@@ -320,6 +348,8 @@ class _$SubmitImpl implements _Submit {
     TResult Function(
             String name, String email, String password, String confirmPassword)?
         submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -333,6 +363,8 @@ class _$SubmitImpl implements _Submit {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
   }) {
     return submit(this);
   }
@@ -342,6 +374,8 @@ class _$SubmitImpl implements _Submit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
   }) {
     return submit?.call(this);
   }
@@ -351,6 +385,8 @@ class _$SubmitImpl implements _Submit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -380,25 +416,321 @@ abstract class _Submit implements SignUpEvent {
 }
 
 /// @nodoc
+abstract class _$$LoginUserImplCopyWith<$Res> {
+  factory _$$LoginUserImplCopyWith(
+          _$LoginUserImpl value, $Res Function(_$LoginUserImpl) then) =
+      __$$LoginUserImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class __$$LoginUserImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$LoginUserImpl>
+    implements _$$LoginUserImplCopyWith<$Res> {
+  __$$LoginUserImplCopyWithImpl(
+      _$LoginUserImpl _value, $Res Function(_$LoginUserImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$LoginUserImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoginUserImpl implements _LoginUser {
+  const _$LoginUserImpl({required this.email, required this.password});
+
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'SignUpEvent.loginUser(email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoginUserImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginUserImplCopyWith<_$LoginUserImpl> get copyWith =>
+      __$$LoginUserImplCopyWithImpl<_$LoginUserImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            String name, String email, String password, String confirmPassword)
+        submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
+  }) {
+    return loginUser(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
+  }) {
+    return loginUser?.call(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
+    required TResult orElse(),
+  }) {
+    if (loginUser != null) {
+      return loginUser(email, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
+  }) {
+    return loginUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
+  }) {
+    return loginUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
+    required TResult orElse(),
+  }) {
+    if (loginUser != null) {
+      return loginUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoginUser implements SignUpEvent {
+  const factory _LoginUser(
+      {required final String email,
+      required final String password}) = _$LoginUserImpl;
+
+  String get email;
+  String get password;
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoginUserImplCopyWith<_$LoginUserImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LogoutUserImplCopyWith<$Res> {
+  factory _$$LogoutUserImplCopyWith(
+          _$LogoutUserImpl value, $Res Function(_$LogoutUserImpl) then) =
+      __$$LogoutUserImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogoutUserImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$LogoutUserImpl>
+    implements _$$LogoutUserImplCopyWith<$Res> {
+  __$$LogoutUserImplCopyWithImpl(
+      _$LogoutUserImpl _value, $Res Function(_$LogoutUserImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LogoutUserImpl implements _LogoutUser {
+  const _$LogoutUserImpl();
+
+  @override
+  String toString() {
+    return 'SignUpEvent.logoutUser()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogoutUserImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            String name, String email, String password, String confirmPassword)
+        submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
+  }) {
+    return logoutUser();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
+  }) {
+    return logoutUser?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
+    required TResult orElse(),
+  }) {
+    if (logoutUser != null) {
+      return logoutUser();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
+  }) {
+    return logoutUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
+  }) {
+    return logoutUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
+    required TResult orElse(),
+  }) {
+    if (logoutUser != null) {
+      return logoutUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogoutUser implements SignUpEvent {
+  const factory _LogoutUser() = _$LogoutUserImpl;
+}
+
+/// @nodoc
 mixin _$SignUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(String message) success,
+    required TResult Function(User user) success,
+    required TResult Function() loggedOut,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(String message)? success,
+    TResult? Function(User user)? success,
+    TResult? Function()? loggedOut,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(String message)? success,
+    TResult Function(User user)? success,
+    TResult Function()? loggedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -407,6 +739,7 @@ mixin _$SignUpState {
   TResult map<TResult extends Object?>(
     TResult Function(_SignUpState value) $default, {
     required TResult Function(_Success value) success,
+    required TResult Function(_LogOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -414,6 +747,7 @@ mixin _$SignUpState {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_SignUpState value)? $default, {
     TResult? Function(_Success value)? success,
+    TResult? Function(_LogOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -421,6 +755,7 @@ mixin _$SignUpState {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_SignUpState value)? $default, {
     TResult Function(_Success value)? success,
+    TResult Function(_LogOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -490,7 +825,8 @@ class _$SignUpStateImpl implements _SignUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(String message) success,
+    required TResult Function(User user) success,
+    required TResult Function() loggedOut,
     required TResult Function(String message) error,
   }) {
     return $default();
@@ -500,7 +836,8 @@ class _$SignUpStateImpl implements _SignUpState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(String message)? success,
+    TResult? Function(User user)? success,
+    TResult? Function()? loggedOut,
     TResult? Function(String message)? error,
   }) {
     return $default?.call();
@@ -510,7 +847,8 @@ class _$SignUpStateImpl implements _SignUpState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(String message)? success,
+    TResult Function(User user)? success,
+    TResult Function()? loggedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -525,6 +863,7 @@ class _$SignUpStateImpl implements _SignUpState {
   TResult map<TResult extends Object?>(
     TResult Function(_SignUpState value) $default, {
     required TResult Function(_Success value) success,
+    required TResult Function(_LogOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return $default(this);
@@ -535,6 +874,7 @@ class _$SignUpStateImpl implements _SignUpState {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_SignUpState value)? $default, {
     TResult? Function(_Success value)? success,
+    TResult? Function(_LogOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return $default?.call(this);
@@ -545,6 +885,7 @@ class _$SignUpStateImpl implements _SignUpState {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_SignUpState value)? $default, {
     TResult Function(_Success value)? success,
+    TResult Function(_LogOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -565,7 +906,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({User user});
 }
 
 /// @nodoc
@@ -581,13 +922,13 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? user = null,
   }) {
     return _then(_$SuccessImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 }
@@ -595,14 +936,14 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.message);
+  const _$SuccessImpl(this.user);
 
   @override
-  final String message;
+  final User user;
 
   @override
   String toString() {
-    return 'SignUpState.success(message: $message)';
+    return 'SignUpState.success(user: $user)';
   }
 
   @override
@@ -610,11 +951,11 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, user);
 
   /// Create a copy of SignUpState
   /// with the given fields replaced by the non-null parameter values.
@@ -628,32 +969,35 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(String message) success,
+    required TResult Function(User user) success,
+    required TResult Function() loggedOut,
     required TResult Function(String message) error,
   }) {
-    return success(message);
+    return success(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(String message)? success,
+    TResult? Function(User user)? success,
+    TResult? Function()? loggedOut,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(message);
+    return success?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(String message)? success,
+    TResult Function(User user)? success,
+    TResult Function()? loggedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(message);
+      return success(user);
     }
     return orElse();
   }
@@ -663,6 +1007,7 @@ class _$SuccessImpl implements _Success {
   TResult map<TResult extends Object?>(
     TResult Function(_SignUpState value) $default, {
     required TResult Function(_Success value) success,
+    required TResult Function(_LogOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return success(this);
@@ -673,6 +1018,7 @@ class _$SuccessImpl implements _Success {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_SignUpState value)? $default, {
     TResult? Function(_Success value)? success,
+    TResult? Function(_LogOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return success?.call(this);
@@ -683,6 +1029,7 @@ class _$SuccessImpl implements _Success {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_SignUpState value)? $default, {
     TResult Function(_Success value)? success,
+    TResult Function(_LogOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -694,15 +1041,132 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements SignUpState {
-  const factory _Success(final String message) = _$SuccessImpl;
+  const factory _Success(final User user) = _$SuccessImpl;
 
-  String get message;
+  User get user;
 
   /// Create a copy of SignUpState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LogOutImplCopyWith<$Res> {
+  factory _$$LogOutImplCopyWith(
+          _$LogOutImpl value, $Res Function(_$LogOutImpl) then) =
+      __$$LogOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogOutImplCopyWithImpl<$Res>
+    extends _$SignUpStateCopyWithImpl<$Res, _$LogOutImpl>
+    implements _$$LogOutImplCopyWith<$Res> {
+  __$$LogOutImplCopyWithImpl(
+      _$LogOutImpl _value, $Res Function(_$LogOutImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LogOutImpl implements _LogOut {
+  const _$LogOutImpl();
+
+  @override
+  String toString() {
+    return 'SignUpState.loggedOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(User user) success,
+    required TResult Function() loggedOut,
+    required TResult Function(String message) error,
+  }) {
+    return loggedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(User user)? success,
+    TResult? Function()? loggedOut,
+    TResult? Function(String message)? error,
+  }) {
+    return loggedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(User user)? success,
+    TResult Function()? loggedOut,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SignUpState value) $default, {
+    required TResult Function(_Success value) success,
+    required TResult Function(_LogOut value) loggedOut,
+    required TResult Function(_Error value) error,
+  }) {
+    return loggedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SignUpState value)? $default, {
+    TResult? Function(_Success value)? success,
+    TResult? Function(_LogOut value)? loggedOut,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loggedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SignUpState value)? $default, {
+    TResult Function(_Success value)? success,
+    TResult Function(_LogOut value)? loggedOut,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LogOut implements SignUpState {
+  const factory _LogOut() = _$LogOutImpl;
 }
 
 /// @nodoc
@@ -774,7 +1238,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
-    required TResult Function(String message) success,
+    required TResult Function(User user) success,
+    required TResult Function() loggedOut,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -784,7 +1249,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
-    TResult? Function(String message)? success,
+    TResult? Function(User user)? success,
+    TResult? Function()? loggedOut,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -794,7 +1260,8 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
-    TResult Function(String message)? success,
+    TResult Function(User user)? success,
+    TResult Function()? loggedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -809,6 +1276,7 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>(
     TResult Function(_SignUpState value) $default, {
     required TResult Function(_Success value) success,
+    required TResult Function(_LogOut value) loggedOut,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -819,6 +1287,7 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_SignUpState value)? $default, {
     TResult? Function(_Success value)? success,
+    TResult? Function(_LogOut value)? loggedOut,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -829,6 +1298,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_SignUpState value)? $default, {
     TResult Function(_Success value)? success,
+    TResult Function(_LogOut value)? loggedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

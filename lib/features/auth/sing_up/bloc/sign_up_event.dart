@@ -10,4 +10,11 @@ class SignUpEvent with _$SignUpEvent {
     required String password,
     required String confirmPassword,
   }) = _Submit;
+
+  const factory SignUpEvent.loginUser({
+    required String email,
+    required String password,
+  }) = _LoginUser;
+
+  const factory SignUpEvent.logoutUser() = _LogoutUser;
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/core/services/auth_service/auth_service.dart';
-import 'package:note_app/features/auth/sign_in/page/sign_in_page.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -136,15 +135,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 20),
                   BlocConsumer<SignUpBloc, SignUpState>(
                     listener: (context, state) {
-                      state.when(
+                      state.whenOrNull(
                         () {},
-                        success: (message) {
+                        success: (user) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(message),
+                              content: Text('Добро пожаловать, ${user.name}!'),
                               backgroundColor: Colors.green,
                             ),
                           );
+                          context.go('/home');
                         },
                         error: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
