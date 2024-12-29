@@ -17,4 +17,6 @@ class SignUpEvent with _$SignUpEvent {
   }) = _LoginUser;
 
   const factory SignUpEvent.logoutUser() = _LogoutUser;
+
+  const factory SignUpEvent.appStarted() = _AppStarted;
 }

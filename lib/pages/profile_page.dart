@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:note_app/core/services/auth_service/auth_service.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,7 +11,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // final AuthService _authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<SignUpBloc>().add(const SignUpEvent.appStarted());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(width: 10),
           InkWell(
-            onTap: ()  {
+            onTap: () {
               context.read<SignUpBloc>().add(const SignUpEvent.logoutUser());
               context.go('/register');
             },
@@ -84,38 +88,26 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(width: 10),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(50),
+      body: BlocBuilder<SignUpBloc, SignUpState>(
+        builder: (context, state) {
+          return state.when(
+            () => Center(child: Text('Нет данных')),
+            loggedOut: () => Center(child: Center()),
+            success: (user) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('ID: ${user.id}'),
+                    Text('Имя: ${user.name}'),
+                    Text('Email: ${user.email}'),
+                  ],
                 ),
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Account name',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'email',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
+              );
+            },
+            error: (message) => Center(child: Text('Ошибка: $message')),
+          );
+        },
       ),
     );
   }

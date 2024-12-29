@@ -24,6 +24,7 @@ mixin _$SignUpEvent {
         submit,
     required TResult Function(String email, String password) loginUser,
     required TResult Function() logoutUser,
+    required TResult Function() appStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$SignUpEvent {
         submit,
     TResult? Function(String email, String password)? loginUser,
     TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$SignUpEvent {
         submit,
     TResult Function(String email, String password)? loginUser,
     TResult Function()? logoutUser,
+    TResult Function()? appStarted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +56,7 @@ mixin _$SignUpEvent {
     required TResult Function(_Submit value) submit,
     required TResult Function(_LoginUser value) loginUser,
     required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +65,7 @@ mixin _$SignUpEvent {
     TResult? Function(_Submit value)? submit,
     TResult? Function(_LoginUser value)? loginUser,
     TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +74,7 @@ mixin _$SignUpEvent {
     TResult Function(_Submit value)? submit,
     TResult Function(_LoginUser value)? loginUser,
     TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +148,7 @@ class _$StartedImpl implements _Started {
         submit,
     required TResult Function(String email, String password) loginUser,
     required TResult Function() logoutUser,
+    required TResult Function() appStarted,
   }) {
     return started();
   }
@@ -155,6 +162,7 @@ class _$StartedImpl implements _Started {
         submit,
     TResult? Function(String email, String password)? loginUser,
     TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
   }) {
     return started?.call();
   }
@@ -168,6 +176,7 @@ class _$StartedImpl implements _Started {
         submit,
     TResult Function(String email, String password)? loginUser,
     TResult Function()? logoutUser,
+    TResult Function()? appStarted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -183,6 +192,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Submit value) submit,
     required TResult Function(_LoginUser value) loginUser,
     required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
   }) {
     return started(this);
   }
@@ -194,6 +204,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Submit value)? submit,
     TResult? Function(_LoginUser value)? loginUser,
     TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
   }) {
     return started?.call(this);
   }
@@ -205,6 +216,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Submit value)? submit,
     TResult Function(_LoginUser value)? loginUser,
     TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -324,6 +336,7 @@ class _$SubmitImpl implements _Submit {
         submit,
     required TResult Function(String email, String password) loginUser,
     required TResult Function() logoutUser,
+    required TResult Function() appStarted,
   }) {
     return submit(name, email, password, confirmPassword);
   }
@@ -337,6 +350,7 @@ class _$SubmitImpl implements _Submit {
         submit,
     TResult? Function(String email, String password)? loginUser,
     TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
   }) {
     return submit?.call(name, email, password, confirmPassword);
   }
@@ -350,6 +364,7 @@ class _$SubmitImpl implements _Submit {
         submit,
     TResult Function(String email, String password)? loginUser,
     TResult Function()? logoutUser,
+    TResult Function()? appStarted,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -365,6 +380,7 @@ class _$SubmitImpl implements _Submit {
     required TResult Function(_Submit value) submit,
     required TResult Function(_LoginUser value) loginUser,
     required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
   }) {
     return submit(this);
   }
@@ -376,6 +392,7 @@ class _$SubmitImpl implements _Submit {
     TResult? Function(_Submit value)? submit,
     TResult? Function(_LoginUser value)? loginUser,
     TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
   }) {
     return submit?.call(this);
   }
@@ -387,6 +404,7 @@ class _$SubmitImpl implements _Submit {
     TResult Function(_Submit value)? submit,
     TResult Function(_LoginUser value)? loginUser,
     TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
     required TResult orElse(),
   }) {
     if (submit != null) {
@@ -498,6 +516,7 @@ class _$LoginUserImpl implements _LoginUser {
         submit,
     required TResult Function(String email, String password) loginUser,
     required TResult Function() logoutUser,
+    required TResult Function() appStarted,
   }) {
     return loginUser(email, password);
   }
@@ -511,6 +530,7 @@ class _$LoginUserImpl implements _LoginUser {
         submit,
     TResult? Function(String email, String password)? loginUser,
     TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
   }) {
     return loginUser?.call(email, password);
   }
@@ -524,6 +544,7 @@ class _$LoginUserImpl implements _LoginUser {
         submit,
     TResult Function(String email, String password)? loginUser,
     TResult Function()? logoutUser,
+    TResult Function()? appStarted,
     required TResult orElse(),
   }) {
     if (loginUser != null) {
@@ -539,6 +560,7 @@ class _$LoginUserImpl implements _LoginUser {
     required TResult Function(_Submit value) submit,
     required TResult Function(_LoginUser value) loginUser,
     required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
   }) {
     return loginUser(this);
   }
@@ -550,6 +572,7 @@ class _$LoginUserImpl implements _LoginUser {
     TResult? Function(_Submit value)? submit,
     TResult? Function(_LoginUser value)? loginUser,
     TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
   }) {
     return loginUser?.call(this);
   }
@@ -561,6 +584,7 @@ class _$LoginUserImpl implements _LoginUser {
     TResult Function(_Submit value)? submit,
     TResult Function(_LoginUser value)? loginUser,
     TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
     required TResult orElse(),
   }) {
     if (loginUser != null) {
@@ -632,6 +656,7 @@ class _$LogoutUserImpl implements _LogoutUser {
         submit,
     required TResult Function(String email, String password) loginUser,
     required TResult Function() logoutUser,
+    required TResult Function() appStarted,
   }) {
     return logoutUser();
   }
@@ -645,6 +670,7 @@ class _$LogoutUserImpl implements _LogoutUser {
         submit,
     TResult? Function(String email, String password)? loginUser,
     TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
   }) {
     return logoutUser?.call();
   }
@@ -658,6 +684,7 @@ class _$LogoutUserImpl implements _LogoutUser {
         submit,
     TResult Function(String email, String password)? loginUser,
     TResult Function()? logoutUser,
+    TResult Function()? appStarted,
     required TResult orElse(),
   }) {
     if (logoutUser != null) {
@@ -673,6 +700,7 @@ class _$LogoutUserImpl implements _LogoutUser {
     required TResult Function(_Submit value) submit,
     required TResult Function(_LoginUser value) loginUser,
     required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
   }) {
     return logoutUser(this);
   }
@@ -684,6 +712,7 @@ class _$LogoutUserImpl implements _LogoutUser {
     TResult? Function(_Submit value)? submit,
     TResult? Function(_LoginUser value)? loginUser,
     TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
   }) {
     return logoutUser?.call(this);
   }
@@ -695,6 +724,7 @@ class _$LogoutUserImpl implements _LogoutUser {
     TResult Function(_Submit value)? submit,
     TResult Function(_LoginUser value)? loginUser,
     TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
     required TResult orElse(),
   }) {
     if (logoutUser != null) {
@@ -706,6 +736,135 @@ class _$LogoutUserImpl implements _LogoutUser {
 
 abstract class _LogoutUser implements SignUpEvent {
   const factory _LogoutUser() = _$LogoutUserImpl;
+}
+
+/// @nodoc
+abstract class _$$AppStartedImplCopyWith<$Res> {
+  factory _$$AppStartedImplCopyWith(
+          _$AppStartedImpl value, $Res Function(_$AppStartedImpl) then) =
+      __$$AppStartedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AppStartedImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$AppStartedImpl>
+    implements _$$AppStartedImplCopyWith<$Res> {
+  __$$AppStartedImplCopyWithImpl(
+      _$AppStartedImpl _value, $Res Function(_$AppStartedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$AppStartedImpl implements _AppStarted {
+  const _$AppStartedImpl();
+
+  @override
+  String toString() {
+    return 'SignUpEvent.appStarted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AppStartedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            String name, String email, String password, String confirmPassword)
+        submit,
+    required TResult Function(String email, String password) loginUser,
+    required TResult Function() logoutUser,
+    required TResult Function() appStarted,
+  }) {
+    return appStarted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult? Function(String email, String password)? loginUser,
+    TResult? Function()? logoutUser,
+    TResult? Function()? appStarted,
+  }) {
+    return appStarted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            String name, String email, String password, String confirmPassword)?
+        submit,
+    TResult Function(String email, String password)? loginUser,
+    TResult Function()? logoutUser,
+    TResult Function()? appStarted,
+    required TResult orElse(),
+  }) {
+    if (appStarted != null) {
+      return appStarted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_Submit value) submit,
+    required TResult Function(_LoginUser value) loginUser,
+    required TResult Function(_LogoutUser value) logoutUser,
+    required TResult Function(_AppStarted value) appStarted,
+  }) {
+    return appStarted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_Submit value)? submit,
+    TResult? Function(_LoginUser value)? loginUser,
+    TResult? Function(_LogoutUser value)? logoutUser,
+    TResult? Function(_AppStarted value)? appStarted,
+  }) {
+    return appStarted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_Submit value)? submit,
+    TResult Function(_LoginUser value)? loginUser,
+    TResult Function(_LogoutUser value)? logoutUser,
+    TResult Function(_AppStarted value)? appStarted,
+    required TResult orElse(),
+  }) {
+    if (appStarted != null) {
+      return appStarted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AppStarted implements SignUpEvent {
+  const factory _AppStarted() = _$AppStartedImpl;
 }
 
 /// @nodoc

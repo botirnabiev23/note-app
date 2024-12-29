@@ -17,6 +17,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<_Submit>(_onSubmit);
     on<_LoginUser>(_onLoginUser);
     on<_LogoutUser>(_onLogoutUser);
+    on<_AppStarted>(_onAppStarted);
   }
 
   Future<void> _onSubmit(
@@ -68,6 +69,28 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(const _LogOut());
     } catch (e) {
       emit(_Error('Ошибка при выходе: $e'));
+    }
+  }
+
+  Future<void> _onAppStarted(
+      _AppStarted event, Emitter<SignUpState> emit) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+      if (isLoggedIn) {
+        final userData = prefs.getString('user');
+        if (userData != null) {
+          final user = User.fromJson(jsonDecode(userData));
+          emit(SignUpState.success(user));
+        } else {
+          emit(const SignUpState.loggedOut());
+        }
+      } else {
+        emit(const SignUpState.loggedOut());
+      }
+    } catch (e) {
+      emit(SignUpState.error('Ошибка при загрузке данных: $e'));
     }
   }
 
