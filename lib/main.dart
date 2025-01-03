@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/core/services/local_storage/local_storage.dart';
 import 'package:note_app/features/auth/sign_in/page/sign_in_page.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
+import 'package:note_app/features/splash/bloc/splash_bloc.dart';
 import 'package:note_app/pages/add_note_page.dart';
 import 'package:note_app/features/auth/sing_up/page/sign_up_page.dart';
 import 'package:note_app/pages/edit_page.dart';
@@ -12,10 +14,15 @@ import 'package:note_app/pages/profile_page.dart';
 import 'package:note_app/pages/search_page.dart';
 import 'package:note_app/pages/splash_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorage.init();
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) => SplashBloc()..add(SplashEvent.checkAuthStatus()),
+        ),
         BlocProvider(
           create: (_) => NoteBloc(),
         ),

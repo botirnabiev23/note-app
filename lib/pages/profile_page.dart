@@ -92,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context, state) {
           return state.when(
             () => Center(child: Text('Нет данных')),
-            loggedOut: () => Center(child: Center()),
+            loggedOut: () => Center(child: Center(child: Text('data'),)),
             success: (user) {
               return Center(
                 child: Column(

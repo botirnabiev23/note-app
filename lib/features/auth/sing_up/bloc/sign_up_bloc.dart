@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:note_app/core/model/user_model.dart';
+import 'package:note_app/core/services/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +13,8 @@ part 'sign_up_state.dart';
 part 'sign_up_bloc.freezed.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+  final LocalStorage _localStorage = LocalStorage();
+
   SignUpBloc() : super(const SignUpState()) {
     on<_Submit>(_onSubmit);
     on<_LoginUser>(_onLoginUser);
@@ -25,7 +27,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
       final user = User(
         id: const Uuid().v4(),
         name: event.name,
@@ -33,29 +34,63 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: event.password,
       );
 
-      await prefs.setString('user', jsonEncode(user.toJson()));
+      if (user.name.isEmpty || user.email.isEmpty || user.password.isEmpty) {
+        emit(const SignUpState.error('All fields are required.'));
+        return;
+      }
+
+      if (user.name.length <= 2) {
+        emit(const SignUpState.error('Name must be longer than 2 characters.'));
+        return;
+      }
+
+      if (user.email.length <= 8 || !user.email.contains('@')) {
+        emit(const SignUpState.error('Invalid email format.'));
+        return;
+      }
+
+      // if (user.password != user.confirmPassword) {
+      //   emit(const SignUpState.error('Passwords do not match.'));
+      //   return;
+      // }
+
+      await _localStorage.saveUser(user);
+      await _localStorage.saveCurrentUser(user);
       emit(_Success(user));
     } catch (e) {
       emit(_Error('Ошибка при регистрации пользователя: $e'));
     }
   }
 
-  Future<void> _onLoginUser(_LoginUser event, Emitter<SignUpState> emit) async {
+  Future<void> _onLoginUser(
+    _LoginUser event,
+    Emitter<SignUpState> emit,
+  ) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final userData = prefs.getString('user');
-
-      if (userData != null) {
-        final user = User.fromJson(jsonDecode(userData));
-        if (user.email == event.email && user.password == event.password) {
-          await prefs.setBool('isLoggedIn', true);
-          emit(_Success(user));
-        } else {
-          emit(const _Error('Неверный пароль или email'));
+      final allUsers = await _localStorage.getAllUsers();
+      if (allUsers != null) {
+        for (var user in allUsers) {
+          if (user.email == event.email && user.password == event.password) {
+            emit(_Success(user));
+            return;
+          }
         }
-      } else {
-        emit(const _Error('Пользователь не найден.'));
+        emit(_Error('Неверный пароль или email'));
       }
+      // final prefs = await SharedPreferences.getInstance();
+      // final userData = prefs.getString('user');
+      //
+      // if (userData != null) {
+      //   final user = User.fromJson(jsonDecode(userData));
+      //   if (user.email == event.email && user.password == event.password) {
+      //     await prefs.setBool('isLoggedIn', true);
+      //     emit(_Success(user));
+      //   } else {
+      //     emit(const _Error('Неверный пароль или email'));
+      //   }
+      // } else {
+      //   emit(const _Error('Пользователь не найден.'));
+      // }
     } catch (e) {
       emit(_Error('Ошибка при входе: $e'));
     }
@@ -64,8 +99,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<void> _onLogoutUser(
       _LogoutUser event, Emitter<SignUpState> emit) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', false);
+      await _localStorage.deleteCurrentUser();
       emit(const _LogOut());
     } catch (e) {
       emit(_Error('Ошибка при выходе: $e'));
@@ -73,7 +107,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<void> _onAppStarted(
-      _AppStarted event, Emitter<SignUpState> emit) async {
+    _AppStarted event,
+    Emitter<SignUpState> emit,
+  ) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;

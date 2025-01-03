@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/core/services/auth_service/auth_service.dart';
+import 'package:note_app/features/splash/bloc/splash_bloc.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -10,30 +11,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final AuthService _authService = AuthService();
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLogin();
-  }
-
-  void _checkLogin() async {
-    final isLoggedIn = await _authService.isLoggedIn();
-    if (isLoggedIn) {
-      if(!mounted) return;
-      context.go('/home');
-    } else {
-      if(!mounted) return;
-      context.go('/register');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+    return Scaffold(
+      body: BlocListener<SplashBloc, SplashState>(
+        listener: (context, state) {
+          if (state is Authanticated) {
+            context.go('/home', extra: state.user);
+          } else if (state is Unauthanticated) {
+            context.go('/register');
+          }
+        },
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
