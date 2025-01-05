@@ -6,4 +6,5 @@ class SignUpState with _$SignUpState {
   const factory SignUpState.success(User user) = _Success;
   const factory SignUpState.loggedOut() = _LogOut;
   const factory SignUpState.error(String message) = _Error;
+  const factory SignUpState.usersChecked() = _UsersCheckedState;
 }

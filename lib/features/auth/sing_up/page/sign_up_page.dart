@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/core/services/auth_service/auth_service.dart';
+import 'package:note_app/core/services/local_storage/local_storage.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -19,17 +19,21 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final AuthService _authService = AuthService();
 
-  @override
-  void initState() {
-    super.initState();
-    _initializeAuthService();
-  }
+  final LocalStorage localStorage = LocalStorage();
 
-  Future<void> _initializeAuthService() async {
-    await _authService.init();
-  }
+  // Future<void> getAllUsers() async {
+  //   final allUsers = await localStorage.getAllUsers();
+  //   if (allUsers == null || allUsers.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('There are no registered accounts yet. Please create account.'),
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //   context.go('/login');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -195,19 +199,40 @@ class _SignUpPageState extends State<SignUpPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("You have an account?"),
-                      TextButton(
-                        onPressed: () {
-                          context.go('/login');
+                      const Text('You have an account?'),
+                      BlocConsumer<SignUpBloc, SignUpState>(
+                        builder: (context, state) {
+                          return TextButton(
+                            onPressed: () {
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(SignUpEvent.checkUsers());
+                            },
+                            style: const ButtonStyle(
+                              overlayColor:
+                                  WidgetStatePropertyAll(Colors.transparent),
+                            ),
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(color: Colors.green),
+                            ),
+                          );
                         },
-                        style: const ButtonStyle(
-                          overlayColor:
-                              WidgetStatePropertyAll(Colors.transparent),
-                        ),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(color: Colors.green),
-                        ),
+                        listener: (context, state) {
+                          state.whenOrNull(
+                            () {},
+                            usersChecked: () {
+                              context.go('/login');
+                            },
+                            error: (message) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: Colors.red),
+                              );
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),

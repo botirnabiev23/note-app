@@ -20,6 +20,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<_LoginUser>(_onLoginUser);
     on<_LogoutUser>(_onLogoutUser);
     on<_AppStarted>(_onAppStarted);
+    on<_CheckUsers>(_checkUser);
   }
 
   Future<void> _onSubmit(
@@ -77,27 +78,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         }
         emit(_Error('Неверный пароль или email'));
       }
-      // final prefs = await SharedPreferences.getInstance();
-      // final userData = prefs.getString('user');
-      //
-      // if (userData != null) {
-      //   final user = User.fromJson(jsonDecode(userData));
-      //   if (user.email == event.email && user.password == event.password) {
-      //     await prefs.setBool('isLoggedIn', true);
-      //     emit(_Success(user));
-      //   } else {
-      //     emit(const _Error('Неверный пароль или email'));
-      //   }
-      // } else {
-      //   emit(const _Error('Пользователь не найден.'));
-      // }
     } catch (e) {
       emit(_Error('Ошибка при входе: $e'));
     }
   }
 
   Future<void> _onLogoutUser(
-      _LogoutUser event, Emitter<SignUpState> emit) async {
+    _LogoutUser event,
+    Emitter<SignUpState> emit,
+  ) async {
     try {
       await _localStorage.deleteCurrentUser();
       emit(const _LogOut());
@@ -130,38 +119,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
   }
 
-// Future<void> _onSubmit(
-//   _Submit event,
-//   Emitter<SignUpState> emit,
-// ) async {
-//   final name = event.name;
-//   final email = event.email;
-//   final password = event.password;
-//   final confirmPassword = event.confirmPassword;
-
-// if (name.isEmpty ||
-//     email.isEmpty ||
-//     password.isEmpty ||
-//     confirmPassword.isEmpty) {
-//   emit(const SignUpState.error('All fields are required.'));
-//   return;
-// }
-//
-// if (name.length <= 2) {
-//   emit(const SignUpState.error('Name must be longer than 2 characters.'));
-//   return;
-// }
-//
-// if (email.length <= 8 || !email.contains('@')) {
-//   emit(const SignUpState.error('Invalid email format.'));
-//   return;
-// }
-//
-// if (password != confirmPassword) {
-//   emit(const SignUpState.error('Passwords do not match.'));
-//   return;
-// }
-
-//   emit(const SignUpState.success('Captcha passed successfully!'));
-// }
+  Future<void> _checkUser(
+    _CheckUsers event,
+    Emitter<SignUpState> emit,
+  ) async {
+    try {
+      final allUsers = await _localStorage.getAllUsers();
+      if (allUsers == null || allUsers.isEmpty) {
+        emit(const SignUpState.error(
+            'There are no registered accounts yet. Please create account'));
+        return;
+      }
+      emit(SignUpState.usersChecked());
+    } catch (_) {
+      emit(SignUpState.error('Error'));
+    }
+  }
 }

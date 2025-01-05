@@ -11,7 +11,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   void initState() {
     super.initState();
@@ -88,11 +87,27 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(width: 10),
         ],
       ),
-      body: BlocBuilder<SignUpBloc, SignUpState>(
+      body: BlocConsumer<SignUpBloc, SignUpState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            () {},
+            success: (user) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Добро пожаловать, ${user.name}!')),
+              );
+            },
+            error: (message) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('Ошибка: $message'),
+                    backgroundColor: Colors.red),
+              );
+            },
+          );
+        },
         builder: (context, state) {
           return state.when(
-            () => Center(child: Text('Нет данных')),
-            loggedOut: () => Center(child: Center(child: Text('data'),)),
+            () => const Center(child: CircularProgressIndicator()),
             success: (user) {
               return Center(
                 child: Column(
@@ -106,6 +121,9 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
             error: (message) => Center(child: Text('Ошибка: $message')),
+            usersChecked: () =>
+                const Center(child: Text('Пользователи проверены')),
+            loggedOut: () => const Center(child: Text('Нет данных')),
           );
         },
       ),
