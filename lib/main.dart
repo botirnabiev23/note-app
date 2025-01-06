@@ -5,6 +5,7 @@ import 'package:note_app/bloc/note_bloc.dart';
 import 'package:note_app/core/services/local_storage/local_storage.dart';
 import 'package:note_app/features/auth/sign_in/page/sign_in_page.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
+import 'package:note_app/features/profile/bloc/profile_bloc.dart';
 import 'package:note_app/features/splash/bloc/splash_bloc.dart';
 import 'package:note_app/pages/add_note_page.dart';
 import 'package:note_app/features/auth/sing_up/page/sign_up_page.dart';
@@ -21,7 +22,9 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => SplashBloc()..add(SplashEvent.checkAuthStatus()),
+          create: (_) =>
+          SplashBloc()
+            ..add(SplashEvent.checkAuthStatus()),
         ),
         BlocProvider(
           create: (_) => NoteBloc(),
@@ -45,8 +48,20 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => SplashPage(),
       ),
       GoRoute(
+
         path: '/home',
         builder: (context, state) => HomePage(),
+        routes: [
+          GoRoute(
+            name: 'profilePage',
+            path: 'profilePage',
+            builder: (context, state) =>
+                BlocProvider(
+                  create: (context) => ProfileBloc()..add(ProfileEvent.started()),
+                  child: ProfilePage(),
+                ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/register',
@@ -64,10 +79,7 @@ class MyApp extends StatelessWidget {
         path: '/searchPage',
         builder: (context, state) => SearchPage(),
       ),
-      GoRoute(
-        path: '/profilePage',
-        builder: (context, state) => ProfilePage(),
-      ),
+
       GoRoute(
         path: '/editNotePage',
         builder: (context, state) {

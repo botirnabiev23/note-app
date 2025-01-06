@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/core/services/local_storage/local_storage.dart';
+import 'package:note_app/core/extensions/build_context_extension.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -20,23 +20,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  final LocalStorage localStorage = LocalStorage();
-
-  // Future<void> getAllUsers() async {
-  //   final allUsers = await localStorage.getAllUsers();
-  //   if (allUsers == null || allUsers.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('There are no registered accounts yet. Please create account.'),
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //   context.go('/login');
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<SignUpBloc>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff0F1E31),
@@ -142,16 +128,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       state.whenOrNull(
                         () {},
                         success: (user) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+                          context.scaffoldMessenger.showSnackBar(
                             SnackBar(
-                              content: Text('Добро пожаловать, ${user.name}!'),
+                              content: Text('Welcome, ${user.name}!'),
                               backgroundColor: Colors.green,
                             ),
                           );
                           context.go('/home');
                         },
                         error: (message) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+                          context.scaffoldMessenger.showSnackBar(
                             SnackBar(
                               content: Text(message),
                               backgroundColor: Colors.red,
@@ -171,14 +157,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             final confirmPassword =
                                 confirmPasswordController.text;
 
-                            context.read<SignUpBloc>().add(
-                                  SignUpEvent.submit(
-                                    name: name,
-                                    email: email,
-                                    password: password,
-                                    confirmPassword: confirmPassword,
-                                  ),
-                                );
+                            bloc.add(
+                              SignUpEvent.submit(
+                                name: name,
+                                email: email,
+                                password: password,
+                                confirmPassword: confirmPassword,
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -203,11 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       BlocConsumer<SignUpBloc, SignUpState>(
                         builder: (context, state) {
                           return TextButton(
-                            onPressed: () {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(SignUpEvent.checkUsers());
-                            },
+                            onPressed: () => bloc.add(SignUpEvent.checkUsers()),
                             style: const ButtonStyle(
                               overlayColor:
                                   WidgetStatePropertyAll(Colors.transparent),
@@ -225,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               context.go('/login');
                             },
                             error: (message) {
-                              ScaffoldMessenger.of(context).showSnackBar(
+                              context.scaffoldMessenger.showSnackBar(
                                 SnackBar(
                                     content: Text(message),
                                     backgroundColor: Colors.red),

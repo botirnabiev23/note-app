@@ -16,6 +16,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     on<_CheckAuthStatus>(_checkAuthStatus);
   }
 
+
+
   Future<void> _checkAuthStatus(
     _CheckAuthStatus event,
     Emitter<SplashState> emit,
