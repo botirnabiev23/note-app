@@ -24,7 +24,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final currentUser = await _localStorage.getCurrentUser();
       print('${currentUser?.name}');
       emit(state.copyWith(user: currentUser));
-
+      print('alallala${state.user?.password}');
     } catch (_) {}
   }
 }

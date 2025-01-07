@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 10),
           InkWell(
             onTap: () {
-              context.go('/profilePage');
+              context.pushNamed('profilePage');
             },
             child: Ink(
               child: Container(

@@ -4,20 +4,33 @@ import 'package:go_router/go_router.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
 import 'package:note_app/features/profile/bloc/profile_bloc.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<ProfileBloc>(
+      create: (context) => ProfileBloc()..add(ProfileEvent.started()),
+      child: ProfilePageBody(),
+    );
+  }
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageBody extends StatefulWidget {
+  const ProfilePageBody({super.key});
+
+  @override
+  State<ProfilePageBody> createState() => _ProfilePageBodyState();
+}
+
+class _ProfilePageBodyState extends State<ProfilePageBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: InkWell(
               onTap: () {
                 context.go('/home');
@@ -61,8 +74,9 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(width: 10),
               InkWell(
                 onTap: () {
-                  context.read<SignUpBloc>().add(const SignUpEvent
-                      .logoutUser());
+                  context
+                      .read<SignUpBloc>()
+                      .add(const SignUpEvent.logoutUser());
                   context.go('/register');
                 },
                 child: Ink(
@@ -87,9 +101,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           body: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(state.currentUser.name),
-                Text(state.currentUser.id),
                 Text(state.currentUser.email),
               ],
             ),

@@ -48,18 +48,14 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => SplashPage(),
       ),
       GoRoute(
-
         path: '/home',
         builder: (context, state) => HomePage(),
         routes: [
           GoRoute(
             name: 'profilePage',
-            path: 'profilePage',
+            path: '/profilePage',
             builder: (context, state) =>
-                BlocProvider(
-                  create: (context) => ProfileBloc()..add(ProfileEvent.started()),
-                  child: ProfilePage(),
-                ),
+                ProfilePage(),
           ),
         ],
       ),

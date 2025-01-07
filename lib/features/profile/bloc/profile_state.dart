@@ -6,5 +6,12 @@ class ProfileState with _$ProfileState {
 }
 
 extension ProfileStateExtension on ProfileState {
-  User get currentUser => user!;
+  User get currentUser =>
+      user ??
+      User(
+        id: '',
+        name: '',
+        email: '',
+        password: '',
+      );
 }
