@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/core/model/note_model.dart';
+import 'package:note_app/features/home/home_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Widget> notes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeBloc>().add(HomeEvent.getAllNotes());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,22 +79,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: CustomScrollView(
         slivers: [
-          BlocBuilder<NoteBloc, NoteState>(
+          BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
-              if (state is NoteListUpdated) {
-                final notes = state.notes;
-                if (notes.isNotEmpty) {
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return NoteItem(
-                          note: notes[index],
-                        );
-                      },
-                      childCount: notes.length,
-                    ),
-                  );
-                }
+              final notes = state.notes;
+              if (notes.isNotEmpty) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return NoteItem(
+                        note: notes[index],
+                      );
+                    },
+                    childCount: notes.length,
+                  ),
+                );
               }
               return SliverToBoxAdapter(
                 child: Center(
@@ -160,7 +164,7 @@ class NoteItem extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(12),
             ),
-            color: note.color,
+            color: Color(note.color),
           ),
           child: Text(
             note.title,
@@ -170,16 +174,4 @@ class NoteItem extends StatelessWidget {
       ),
     );
   }
-}
-
-class Note {
-  final String title;
-  final String subtitle;
-  final Color color;
-
-  Note({
-    required this.title,
-    required this.subtitle,
-    this.color = Colors.grey,
-  });
 }

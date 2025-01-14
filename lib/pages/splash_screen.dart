@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/features/splash/bloc/splash_bloc.dart';
 
+import '../features/home/home_bloc.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -11,6 +13,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

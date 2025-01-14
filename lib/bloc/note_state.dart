@@ -12,3 +12,10 @@ class NoteListUpdated extends NoteState {
   @override
   String toString() => 'NoteListUpdated(notes: $notes)';
 }
+
+class NoteErrorState extends NoteState {
+  final String error;
+
+  NoteErrorState(this.error);
+}
+

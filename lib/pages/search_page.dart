@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/features/home/home_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -70,9 +70,8 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ],
       ),
-      body: BlocBuilder<NoteBloc, NoteState>(
+      body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          if (state is NoteListUpdated) {
             final filteredNotes = state.notes
                 .where((note) =>
                     note.title.toLowerCase().contains(searchQuery) ||
@@ -109,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),
-                        color: note.color,
+                        color: Color(note.color),
                       ),
                       child: Text(
                         note.title,
@@ -121,26 +120,26 @@ class _SearchPageState extends State<SearchPage> {
                 );
               },
             );
-          } else {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: InkWell(
-                    child: Ink(
-                      child: Image(
-                        image: AssetImage('assets/images/search_page.png'),
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  'File not found. Try searching again.',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ],
-            );
-          }
+          //  else {
+          //   return Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Center(
+          //         child: InkWell(
+          //           child: Ink(
+          //             child: Image(
+          //               image: AssetImage('assets/images/search_page.png'),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       Text(
+          //         'File not found. Try searching again.',
+          //         style: TextStyle(fontSize: 20),
+          //       ),
+          //     ],
+          //   );
+          // }
         },
       ),
     );

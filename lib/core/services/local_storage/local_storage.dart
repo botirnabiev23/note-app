@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:note_app/core/constants/local_storage_keys_constants.dart';
+import 'package:note_app/core/model/note_model.dart';
 import 'package:note_app/core/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +39,6 @@ class LocalStorage {
       LocalStorageKeysConstants.allUsers,
       allUsers,
     );
-    await _sharedPreferences.setString(user.id, stringUser);
   }
 
   Future<User?> getCurrentUser() async {
@@ -52,6 +52,23 @@ class LocalStorage {
   Future<void> saveCurrentUser(User user) async {
     await _sharedPreferences.setString(
         LocalStorageKeysConstants.currentUser, jsonEncode(user.toJson()));
+  }
+
+  Future<List<Note>> getUserNotes(String userId) async {
+    final notesJson = _sharedPreferences.getStringList(
+      userId,
+    );
+    print('noteeeeeeeeeeeeeeeeeeeee $notesJson');
+    if (notesJson == null) return [];
+
+    return notesJson.map((noteString) {
+      return Note.fromJson(jsonDecode(noteString));
+    }).toList();
+  }
+
+  Future<void> saveUserNotes(String userId, List<Note> notes) async {
+    final notesJson = notes.map((note) => jsonEncode(note.toJson())).toList();
+    await _sharedPreferences.setStringList(userId, notesJson);
   }
 
   Future<void> deleteCurrentUser() async =>

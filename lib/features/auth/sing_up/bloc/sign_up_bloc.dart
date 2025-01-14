@@ -59,9 +59,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       await _localStorage.saveUser(user);
       await _localStorage.saveCurrentUser(user);
+
       emit(_Success(user));
     } catch (e) {
-      emit(_Error('Ошибка при регистрации пользователя: $e'));
+      emit(_Error('Error while registering user: $e'));
     }
   }
 
@@ -78,10 +79,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             return;
           }
         }
-        emit(_Error('Неверный пароль или email'));
+        emit(_Error('Incorrect password or email'));
       }
     } catch (e) {
-      emit(_Error('Ошибка при входе: $e'));
+      emit(_Error('Error logging in: $e'));
     }
   }
 
@@ -94,7 +95,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
       emit(const _LogOut());
     } catch (e) {
-      emit(_Error('Ошибка при выходе: $e'));
+      emit(_Error('Error logging in: $e'));
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/features/home/home_bloc.dart';
 
 class AddNotePage extends StatefulWidget {
   const AddNotePage({super.key});
@@ -56,6 +57,7 @@ class _AddNotePageState extends State<AddNotePage> {
                           selectedColor,
                         ),
                       );
+                  context.read<HomeBloc>().add(HomeEvent.getAllNotes());
                   setState(() {
                     isEditing = false;
                   });

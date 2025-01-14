@@ -19,32 +19,38 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getAllNotes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getAllNotes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getAllNotes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetAllNotes value) getAllNotes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetAllNotes value)? getAllNotes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetAllNotes value)? getAllNotes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,6 +118,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getAllNotes,
   }) {
     return started();
   }
@@ -120,6 +127,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getAllNotes,
   }) {
     return started?.call();
   }
@@ -128,6 +136,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getAllNotes,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -140,6 +149,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetAllNotes value) getAllNotes,
   }) {
     return started(this);
   }
@@ -148,6 +158,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetAllNotes value)? getAllNotes,
   }) {
     return started?.call(this);
   }
@@ -156,6 +167,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetAllNotes value)? getAllNotes,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -170,38 +182,118 @@ abstract class _Started implements HomeEvent {
 }
 
 /// @nodoc
-mixin _$HomeState {
+abstract class _$$GetAllNotesImplCopyWith<$Res> {
+  factory _$$GetAllNotesImplCopyWith(
+          _$GetAllNotesImpl value, $Res Function(_$GetAllNotesImpl) then) =
+      __$$GetAllNotesImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetAllNotesImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$GetAllNotesImpl>
+    implements _$$GetAllNotesImplCopyWith<$Res> {
+  __$$GetAllNotesImplCopyWithImpl(
+      _$GetAllNotesImpl _value, $Res Function(_$GetAllNotesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetAllNotesImpl implements _GetAllNotes {
+  const _$GetAllNotesImpl();
+
+  @override
+  String toString() {
+    return 'HomeEvent.getAllNotes()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetAllNotesImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) =>
-      throw _privateConstructorUsedError;
+    required TResult Function() started,
+    required TResult Function() getAllNotes,
+  }) {
+    return getAllNotes();
+  }
+
+  @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-  }) =>
-      throw _privateConstructorUsedError;
+    TResult? Function()? started,
+    TResult? Function()? getAllNotes,
+  }) {
+    return getAllNotes?.call();
+  }
+
+  @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function()? started,
+    TResult Function()? getAllNotes,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) {
+    if (getAllNotes != null) {
+      return getAllNotes();
+    }
+    return orElse();
+  }
+
+  @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) =>
-      throw _privateConstructorUsedError;
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetAllNotes value) getAllNotes,
+  }) {
+    return getAllNotes(this);
+  }
+
+  @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetAllNotes value)? getAllNotes,
+  }) {
+    return getAllNotes?.call(this);
+  }
+
+  @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(_Started value)? started,
+    TResult Function(_GetAllNotes value)? getAllNotes,
     required TResult orElse(),
-  }) =>
+  }) {
+    if (getAllNotes != null) {
+      return getAllNotes(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetAllNotes implements HomeEvent {
+  const factory _GetAllNotes() = _$GetAllNotesImpl;
+}
+
+/// @nodoc
+mixin _$HomeState {
+  List<Note> get notes => throw _privateConstructorUsedError;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HomeStateCopyWith<HomeState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -209,6 +301,8 @@ mixin _$HomeState {
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
+  @useResult
+  $Res call({List<Note> notes});
 }
 
 /// @nodoc
@@ -223,103 +317,105 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? notes = null,
+  }) {
+    return _then(_value.copyWith(
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$HomeStateImplCopyWith<$Res>
+    implements $HomeStateCopyWith<$Res> {
+  factory _$$HomeStateImplCopyWith(
+          _$HomeStateImpl value, $Res Function(_$HomeStateImpl) then) =
+      __$$HomeStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Note> notes});
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$HomeStateImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$HomeStateImpl>
+    implements _$$HomeStateImplCopyWith<$Res> {
+  __$$HomeStateImplCopyWithImpl(
+      _$HomeStateImpl _value, $Res Function(_$HomeStateImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? notes = null,
+  }) {
+    return _then(_$HomeStateImpl(
+      notes: null == notes
+          ? _value._notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<Note>,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+class _$HomeStateImpl implements _HomeState {
+  const _$HomeStateImpl({final List<Note> notes = const []}) : _notes = notes;
+
+  final List<Note> _notes;
+  @override
+  @JsonKey()
+  List<Note> get notes {
+    if (_notes is EqualUnmodifiableListView) return _notes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notes);
+  }
 
   @override
   String toString() {
-    return 'HomeState.initial()';
+    return 'HomeState(notes: $notes)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$HomeStateImpl &&
+            const DeepCollectionEquality().equals(other._notes, _notes));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_notes));
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
+  @pragma('vm:prefer-inline')
+  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
+      __$$HomeStateImplCopyWithImpl<_$HomeStateImpl>(this, _$identity);
 }
 
-abstract class _Initial implements HomeState {
-  const factory _Initial() = _$InitialImpl;
+abstract class _HomeState implements HomeState {
+  const factory _HomeState({final List<Note> notes}) = _$HomeStateImpl;
+
+  @override
+  List<Note> get notes;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

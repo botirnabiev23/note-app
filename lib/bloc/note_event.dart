@@ -39,3 +39,17 @@ class NoteUpdatedEvent extends NoteEvent {
         updatedColor,
       ];
 }
+
+class LoadNotesEvent extends NoteEvent {}
+
+class SaveNotesEvent extends NoteEvent {}
+
+class SetUserEvent extends NoteEvent {
+  final String userId;
+
+  const SetUserEvent(this.userId);
+
+  @override
+  List<Object?> get props => [userId];
+}
+
