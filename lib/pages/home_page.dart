@@ -151,7 +151,7 @@ class NoteItem extends StatelessWidget {
           extra: {
             'title': note.title,
             'subtitle': note.subtitle,
-            'color': note.color,
+            // 'color': note.color,
           },
         );
       },
@@ -164,7 +164,7 @@ class NoteItem extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(12),
             ),
-            color: Color(note.color),
+            color: Colors.blue,
           ),
           child: Text(
             note.title,

@@ -58,7 +58,6 @@ class LocalStorage {
     final notesJson = _sharedPreferences.getStringList(
       userId,
     );
-    print('noteeeeeeeeeeeeeeeeeeeee $notesJson');
     if (notesJson == null) return [];
 
     return notesJson.map((noteString) {

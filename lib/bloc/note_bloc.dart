@@ -27,7 +27,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       final newNote = Note(
         title: event.title,
         subtitle: event.subtitle,
-        color: event.color.value,
+        // color: event.color.value,
       );
       existingNotes.add(newNote);
       await _localStorage.saveUserNotes(currentUserId.id, existingNotes);
@@ -50,7 +50,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
         existingNotes[index] = Note(
           title: event.updatedTitle,
           subtitle: event.updatedSubtitle,
-          color: event.updatedColor.value,
+          // color: event.updatedColor.value,
         );
         await _localStorage.saveUserNotes(currentUserId.id, existingNotes);
         emit(NoteListUpdated(List.from(existingNotes)));

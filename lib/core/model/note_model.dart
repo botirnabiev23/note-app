@@ -1,19 +1,19 @@
 class Note {
   final String title;
   final String subtitle;
-  final int color;
+  // final int color;
 
   Note({
     required this.title,
     required this.subtitle,
-    this.color = 0xFF757575,
+    // this.color = 0xFF757575,
   });
 
   factory Note.fromJson(Map<String, dynamic> json) {
     return Note(
       title: json['title'],
       subtitle: json['subtitle'],
-      color: json['color'],
+      // color: json['color'],
     );
   }
 
@@ -21,7 +21,7 @@ class Note {
     return {
       'title': title,
       'subtitle': subtitle,
-      'color': color,
+      // 'color': color,
     };
   }
 }

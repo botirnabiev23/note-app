@@ -93,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                       extra: {
                         'title': note.title,
                         'subtitle': note.subtitle,
-                        'color': note.color,
+                        // 'color': note.color,
                       },
                     );
                   },
@@ -108,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),
-                        color: Color(note.color),
+                        // color: Color(note.color),
                       ),
                       child: Text(
                         note.title,
