@@ -20,7 +20,6 @@ class LocalStorage {
   Future<List<User>?> getAllUsers() async {
     final allUsersStringList =
         _sharedPreferences.getStringList(LocalStorageKeysConstants.allUsers);
-
     if (allUsersStringList == null) {
       return null;
     }

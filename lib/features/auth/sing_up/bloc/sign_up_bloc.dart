@@ -75,6 +75,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       if (allUsers != null) {
         for (var user in allUsers) {
           if (user.email == event.email && user.password == event.password) {
+            await _localStorage.saveCurrentUser(user);
             emit(_Success(user));
             return;
           }
