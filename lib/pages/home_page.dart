@@ -94,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               }
-              return SliverToBoxAdapter(
+              return SliverFillRemaining(
+                hasScrollBody: false,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
