@@ -24,24 +24,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final currentUser = await _localStorage.getCurrentUser();
     if (currentUser == null) return;
     final allNotes = await _localStorage.getUserNotes(currentUser.id);
-    print('shdfksdhfdshfs $allNotes');
     emit(state.copyWith(notes: allNotes));
   }
+
   Future<void> _deleteNote(
-      _DeleteNote event,
-      Emitter<HomeState> emit,
-      ) async {
-    final currentUser = await _localStorage.getCurrentUser();
-    if (currentUser == null) return;
+    _DeleteNote event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      final currentUser = await _localStorage.getCurrentUser();
+      if (currentUser == null) return;
 
-    final allNotes = await _localStorage.getUserNotes(currentUser.id);
+      final allNotes = await _localStorage.getUserNotes(currentUser.id);
 
-    if (event.index < allNotes.length) {
-      allNotes.removeAt(event.index);
+      allNotes.removeWhere((note) => note.id == event.note.id);
 
       await _localStorage.saveUserNotes(currentUser.id, allNotes);
 
       emit(state.copyWith(notes: allNotes));
-    }
+    } catch (_) {}
   }
 }

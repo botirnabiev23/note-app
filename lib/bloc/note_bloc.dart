@@ -27,7 +27,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     try {
       final existingNotes = await _localStorage.getUserNotes(currentUserId.id);
       final newNote = Note(
-        // id: uuid.v4(),
+        id: uuid.v4(),
         title: event.title,
         subtitle: event.subtitle,
         // color: event.color.value,
@@ -47,19 +47,16 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     final currentUserId = await _localStorage.getCurrentUser();
     if (currentUserId == null) return;
     try {
-      final existingNotes = await _localStorage.getUserNotes(currentUserId.id);
-      final index =
-          existingNotes.indexWhere((note) => note.title == event.oldTitle);
-      if (index != -1) {
-        existingNotes[index] = Note(
-          title: event.updatedTitle,
-          subtitle: event.updatedSubtitle,
+      final allNotes = await _localStorage.getUserNotes(currentUserId.id);
+      final updatedNotes = allNotes.map((note) {
+        if (note.id == event.note.id) {
+          return event.note;
+        }
+        return note;
+      }).toList();
+      await _localStorage.saveUserNotes(currentUserId.id, updatedNotes);
+      emit(NoteListUpdated(updatedNotes));
 
-          // color: event.updatedColor.value,
-        );
-        await _localStorage.saveUserNotes(currentUserId.id, existingNotes);
-        emit(NoteListUpdated(List.from(existingNotes)));
-      }
     } catch (_) {
       emit(NoteErrorState('Failed to edit note'));
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_app/core/model/note_model.dart';
 import 'package:note_app/features/home/home_bloc.dart';
 
 class SearchPage extends StatefulWidget {
@@ -85,16 +86,12 @@ class _SearchPageState extends State<SearchPage> {
             return ListView.builder(
               itemCount: filteredNotes.length,
               itemBuilder: (context, index) {
-                final note = filteredNotes[index];
+                final Note note = filteredNotes[index];
                 return InkWell(
                   onTap: () {
                     context.go(
                       '/editNotePage',
-                      extra: {
-                        'title': note.title,
-                        'subtitle': note.subtitle,
-                        // 'color': note.color,
-                      },
+                      extra: note,
                     );
                   },
                   child: Ink(

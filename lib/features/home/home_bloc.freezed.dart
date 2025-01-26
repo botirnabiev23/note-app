@@ -20,21 +20,21 @@ mixin _$HomeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
-    required TResult Function(int index) deleteNote,
+    required TResult Function(Note note) deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
-    TResult? Function(int index)? deleteNote,
+    TResult? Function(Note note)? deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
-    TResult Function(int index)? deleteNote,
+    TResult Function(Note note)? deleteNote,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,7 +125,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
-    required TResult Function(int index) deleteNote,
+    required TResult Function(Note note) deleteNote,
   }) {
     return started();
   }
@@ -135,7 +135,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
-    TResult? Function(int index)? deleteNote,
+    TResult? Function(Note note)? deleteNote,
   }) {
     return started?.call();
   }
@@ -145,7 +145,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
-    TResult Function(int index)? deleteNote,
+    TResult Function(Note note)? deleteNote,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -236,7 +236,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
-    required TResult Function(int index) deleteNote,
+    required TResult Function(Note note) deleteNote,
   }) {
     return getAllNotes();
   }
@@ -246,7 +246,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
-    TResult? Function(int index)? deleteNote,
+    TResult? Function(Note note)? deleteNote,
   }) {
     return getAllNotes?.call();
   }
@@ -256,7 +256,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
-    TResult Function(int index)? deleteNote,
+    TResult Function(Note note)? deleteNote,
     required TResult orElse(),
   }) {
     if (getAllNotes != null) {
@@ -310,7 +310,7 @@ abstract class _$$DeleteNoteImplCopyWith<$Res> {
           _$DeleteNoteImpl value, $Res Function(_$DeleteNoteImpl) then) =
       __$$DeleteNoteImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int index});
+  $Res call({Note note});
 }
 
 /// @nodoc
@@ -326,13 +326,13 @@ class __$$DeleteNoteImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? note = null,
   }) {
     return _then(_$DeleteNoteImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as Note,
     ));
   }
 }
@@ -340,14 +340,14 @@ class __$$DeleteNoteImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DeleteNoteImpl implements _DeleteNote {
-  const _$DeleteNoteImpl(this.index);
+  const _$DeleteNoteImpl(this.note);
 
   @override
-  final int index;
+  final Note note;
 
   @override
   String toString() {
-    return 'HomeEvent.deleteNote(index: $index)';
+    return 'HomeEvent.deleteNote(note: $note)';
   }
 
   @override
@@ -355,11 +355,11 @@ class _$DeleteNoteImpl implements _DeleteNote {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteNoteImpl &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.note, note) || other.note == note));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, note);
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -374,9 +374,9 @@ class _$DeleteNoteImpl implements _DeleteNote {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
-    required TResult Function(int index) deleteNote,
+    required TResult Function(Note note) deleteNote,
   }) {
-    return deleteNote(index);
+    return deleteNote(note);
   }
 
   @override
@@ -384,9 +384,9 @@ class _$DeleteNoteImpl implements _DeleteNote {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
-    TResult? Function(int index)? deleteNote,
+    TResult? Function(Note note)? deleteNote,
   }) {
-    return deleteNote?.call(index);
+    return deleteNote?.call(note);
   }
 
   @override
@@ -394,11 +394,11 @@ class _$DeleteNoteImpl implements _DeleteNote {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
-    TResult Function(int index)? deleteNote,
+    TResult Function(Note note)? deleteNote,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
-      return deleteNote(index);
+      return deleteNote(note);
     }
     return orElse();
   }
@@ -439,9 +439,9 @@ class _$DeleteNoteImpl implements _DeleteNote {
 }
 
 abstract class _DeleteNote implements HomeEvent {
-  const factory _DeleteNote(final int index) = _$DeleteNoteImpl;
+  const factory _DeleteNote(final Note note) = _$DeleteNoteImpl;
 
-  int get index;
+  Note get note;
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.

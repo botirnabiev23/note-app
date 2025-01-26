@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           InkWell(
             onTap: () {
-              context.go('/searchPage');
+              context.goNamed('searchPage');
             },
             child: Ink(
               child: Container(
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       return Dismissible(
-                        key: Key(notes[index].toString()),
+                        key: Key(notes[index].id),
                         direction: DismissDirection.endToStart,
                         confirmDismiss: (direction) async {
                           final confirm = await showDialog<bool>(
@@ -94,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text('Confirm Delete'),
-                                content: Text('Are you sure you want to delete this note?'),
+                                content: Text(
+                                    'Are you sure you want to delete this note?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                         onDismissed: (direction) {
                           context
                               .read<HomeBloc>()
-                              .add(HomeEvent.deleteNote(index));
+                              .add(HomeEvent.deleteNote(notes[index]));
                         },
                         background: Container(
                           decoration: BoxDecoration(
@@ -127,8 +128,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           alignment: Alignment.centerRight,
-                          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 12),
                           child: const Icon(Icons.delete, color: Colors.white),
                         ),
                         child: NoteItem(note: notes[index]),
@@ -146,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       InkWell(
                         onTap: () {
-                          context.go('/addNotePage');
+                          context.goNamed('addNotePage');
                         },
                         splashColor: Colors.transparent,
                         child: Ink(
@@ -170,7 +173,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.go('/addNotePage');
+          context.goNamed('addNotePage');
         },
         backgroundColor: Color(0xff252525),
         shape: RoundedRectangleBorder(
@@ -185,19 +188,18 @@ class _HomePageState extends State<HomePage> {
 class NoteItem extends StatelessWidget {
   final Note note;
 
-  const NoteItem({super.key, required this.note});
+  const NoteItem({
+    super.key,
+    required this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.go(
-          '/editNotePage',
-          extra: {
-            'title': note.title,
-            'subtitle': note.subtitle,
-            // 'color': note.color,
-          },
+        context.goNamed(
+          'editNotePage',
+          extra: note,
         );
       },
       child: Ink(

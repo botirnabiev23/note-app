@@ -135,48 +135,48 @@ class _AddNotePageState extends State<AddNotePage> {
                 ),
               ),
             ),
-            if (isEditing)
-              Column(
-                children: [
-                  const Text('Select Color:', style: TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 10,
-                    children: [
-                      _buildColorOption(Colors.red),
-                      _buildColorOption(Colors.green),
-                      _buildColorOption(Colors.blue),
-                      _buildColorOption(Colors.orange),
-                      _buildColorOption(Colors.purple),
-                    ],
-                  ),
-                ],
-              ),
+            // if (isEditing)
+            //   Column(
+            //     children: [
+            //       const Text('Select Color:', style: TextStyle(fontSize: 18)),
+            //       const SizedBox(height: 8),
+            //       Wrap(
+            //         spacing: 10,
+            //         children: [
+            //           _buildColorOption(Colors.red),
+            //           _buildColorOption(Colors.green),
+            //           _buildColorOption(Colors.blue),
+            //           _buildColorOption(Colors.orange),
+            //           _buildColorOption(Colors.purple),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildColorOption(Color color) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedColor = color;
-        });
-      },
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: selectedColor == color ? Colors.black : Colors.transparent,
-            width: 3,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildColorOption(Color color) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         selectedColor = color;
+  //       });
+  //     },
+  //     child: Container(
+  //       width: 40,
+  //       height: 40,
+  //       decoration: BoxDecoration(
+  //         color: color,
+  //         shape: BoxShape.circle,
+  //         border: Border.all(
+  //           color: selectedColor == color ? Colors.black : Colors.transparent,
+  //           width: 3,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

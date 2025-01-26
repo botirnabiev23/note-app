@@ -4,5 +4,5 @@ part of 'home_bloc.dart';
 class HomeEvent with _$HomeEvent {
   const factory HomeEvent.started() = _Started;
   const factory HomeEvent.getAllNotes() = _GetAllNotes;
-  const factory HomeEvent.deleteNote(int index) = _DeleteNote;
+  const factory HomeEvent.deleteNote(Note note) = _DeleteNote;
 }

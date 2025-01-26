@@ -19,24 +19,13 @@ class TextAddedEvent extends NoteEvent {
 }
 
 class NoteUpdatedEvent extends NoteEvent {
-  final String oldTitle;
-  final String updatedTitle;
-  final String updatedSubtitle;
-  final Color updatedColor;
+  final Note note;
 
-  const NoteUpdatedEvent(
-    this.oldTitle,
-    this.updatedTitle,
-    this.updatedSubtitle,
-    this.updatedColor,
-  );
+  const NoteUpdatedEvent(this.note);
 
   @override
   List<Object?> get props => [
-        oldTitle,
-        updatedTitle,
-        updatedSubtitle,
-        updatedColor,
+        note,
       ];
 }
 

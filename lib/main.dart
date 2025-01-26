@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/core/model/note_model.dart';
 import 'package:note_app/core/services/local_storage/local_storage.dart';
 import 'package:note_app/features/auth/sign_in/page/sign_in_page.dart';
 import 'package:note_app/features/auth/sing_up/bloc/sign_up_bloc.dart';
@@ -53,6 +54,25 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => HomePage(),
         routes: [
           GoRoute(
+            name: "addNotePage",
+            path: '/addNotePage',
+            builder: (context, state) => AddNotePage(),
+          ),
+          GoRoute(
+            name: "searchPage",
+            path: '/searchPage',
+            builder: (context, state) => SearchPage(),
+          ),
+          GoRoute(
+            name: "editNotePage",
+            path: '/editNotePage',
+            builder: (context, state) {
+              final Note note = state.extra as Note;
+
+              return EditNotePage(note: note);
+            },
+          ),
+          GoRoute(
             name: 'profilePage',
             path: '/profilePage',
             builder: (context, state) => ProfilePage(),
@@ -67,28 +87,7 @@ class MyApp extends StatelessWidget {
         path: '/login',
         builder: (context, state) => SignInPage(),
       ),
-      GoRoute(
-        path: '/addNotePage',
-        builder: (context, state) => AddNotePage(),
-      ),
-      GoRoute(
-        path: '/searchPage',
-        builder: (context, state) => SearchPage(),
-      ),
-      GoRoute(
-        path: '/editNotePage',
-        builder: (context, state) {
-          final extra = state.extra as Map<String, dynamic>? ?? {};
-          final String title = extra['title'] ?? '';
-          final String subtitle = extra['subtitle'] ?? '';
-          final Color color = extra['color'] ?? Colors.grey;
-          return EditNotePage(
-            initialTitle: title,
-            initialSubtitle: subtitle,
-            color: color,
-          );
-        },
-      ),
+
     ],
   );
 

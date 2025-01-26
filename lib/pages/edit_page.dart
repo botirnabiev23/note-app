@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
+import 'package:note_app/core/model/note_model.dart';
 
 class EditNotePage extends StatefulWidget {
-  final String? initialTitle;
-  final String? initialSubtitle;
-  final Color? color;
+  final Note note;
 
   const EditNotePage({
     super.key,
-    this.initialTitle,
-    this.initialSubtitle,
-    this.color,
+    required this.note,
   });
 
   @override
@@ -20,24 +17,23 @@ class EditNotePage extends StatefulWidget {
 }
 
 class _EditNotePageState extends State<EditNotePage> {
-  late TextEditingController titleController;
-  late TextEditingController subtitleController;
-  late Color selectedColor;
+  late TextEditingController _titleController;
+  late TextEditingController _subtitleController;
+  late Color _selectedColor;
   bool isEditing = false;
 
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.initialTitle ?? '');
-    subtitleController =
-        TextEditingController(text: widget.initialSubtitle ?? '');
-    selectedColor = widget.color ?? Colors.grey;
+    _titleController = TextEditingController(text: widget.note.title);
+    _subtitleController = TextEditingController(text: widget.note.subtitle);
+    _selectedColor = Colors.grey;
   }
 
   @override
   void dispose() {
-    titleController.dispose();
-    subtitleController.dispose();
+    _titleController.dispose();
+    _subtitleController.dispose();
     super.dispose();
   }
 
@@ -72,17 +68,17 @@ class _EditNotePageState extends State<EditNotePage> {
               children: [
                 InkWell(
                   onTap: () {
-                    final updatedTitle = titleController.text.trim();
-                    final updatedSubtitle = subtitleController.text.trim();
+                    final updatedTitle = _titleController.text.trim();
+                    final updatedSubtitle = _subtitleController.text.trim();
+                    final Note updatedNote = Note(
+                      id: widget.note.id,
+                      title: updatedTitle,
+                      subtitle: updatedSubtitle,
+                    );
                     FocusScope.of(context).unfocus();
                     if (updatedTitle.isNotEmpty || updatedSubtitle.isNotEmpty) {
                       context.read<NoteBloc>().add(
-                            NoteUpdatedEvent(
-                              widget.initialTitle ?? '',
-                              updatedTitle,
-                              updatedSubtitle,
-                              selectedColor,
-                            ),
+                            NoteUpdatedEvent(updatedNote),
                           );
                       setState(() {
                         isEditing = false;
@@ -121,7 +117,7 @@ class _EditNotePageState extends State<EditNotePage> {
                   isEditing = true;
                 });
               },
-              controller: titleController,
+              controller: _titleController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               style: const TextStyle(
@@ -146,7 +142,7 @@ class _EditNotePageState extends State<EditNotePage> {
                     isEditing = true;
                   });
                 },
-                controller: subtitleController,
+                controller: _subtitleController,
                 style: const TextStyle(
                   fontSize: 18,
                   color: Colors.black,
@@ -163,48 +159,48 @@ class _EditNotePageState extends State<EditNotePage> {
                 ),
               ),
             ),
-            if (isEditing)
-              Column(
-                children: [
-                  const Text('Select Color:', style: TextStyle(fontSize: 18)),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 10,
-                    children: [
-                      _buildColorOption(Colors.red),
-                      _buildColorOption(Colors.green),
-                      _buildColorOption(Colors.blue),
-                      _buildColorOption(Colors.orange),
-                      _buildColorOption(Colors.purple),
-                    ],
-                  ),
-                ],
-              ),
+            // if (isEditing)
+            //   Column(
+            //     children: [
+            //       const Text('Select Color:', style: TextStyle(fontSize: 18)),
+            //       const SizedBox(height: 8),
+            //       Wrap(
+            //         spacing: 10,
+            //         children: [
+            //           _buildColorOption(Colors.red),
+            //           _buildColorOption(Colors.green),
+            //           _buildColorOption(Colors.blue),
+            //           _buildColorOption(Colors.orange),
+            //           _buildColorOption(Colors.purple),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildColorOption(Color color) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedColor = color;
-        });
-      },
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: selectedColor == color ? Colors.black : Colors.transparent,
-            width: 3,
-          ),
-        ),
-      ),
-    );
-  }
+// Widget _buildColorOption(Color color) {
+//   return GestureDetector(
+//     onTap: () {
+//       setState(() {
+//         selectedColor = color;
+//       });
+//     },
+//     child: Container(
+//       width: 40,
+//       height: 40,
+//       decoration: BoxDecoration(
+//         color: color,
+//         shape: BoxShape.circle,
+//         border: Border.all(
+//           color: selectedColor == color ? Colors.black : Colors.transparent,
+//           width: 3,
+//         ),
+//       ),
+//     ),
+//   );
+// }
 }
