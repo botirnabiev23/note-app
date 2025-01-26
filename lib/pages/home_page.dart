@@ -88,6 +88,32 @@ class _HomePageState extends State<HomePage> {
                       return Dismissible(
                         key: Key(notes[index].toString()),
                         direction: DismissDirection.endToStart,
+                        confirmDismiss: (direction) async {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Confirm Delete'),
+                                content: Text('Are you sure you want to delete this note?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      context.pop();
+                                    },
+                                    child: Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      context.pop(true);
+                                    },
+                                    child: Text('Delete'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          return confirm ?? false;
+                        },
                         onDismissed: (direction) {
                           context
                               .read<HomeBloc>()
