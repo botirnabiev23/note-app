@@ -52,4 +52,3 @@ class SetUserEvent extends NoteEvent {
   @override
   List<Object?> get props => [userId];
 }
-

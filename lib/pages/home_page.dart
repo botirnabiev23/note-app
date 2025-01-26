@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
@@ -86,8 +85,27 @@ class _HomePageState extends State<HomePage> {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return NoteItem(
-                        note: notes[index],
+                      return Dismissible(
+                        key: Key(notes[index].toString()),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          context
+                              .read<HomeBloc>()
+                              .add(HomeEvent.deleteNote(index));
+                        },
+                        background: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                          alignment: Alignment.centerRight,
+                          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        child: NoteItem(note: notes[index]),
                       );
                     },
                     childCount: notes.length,

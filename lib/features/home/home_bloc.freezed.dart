@@ -20,18 +20,21 @@ mixin _$HomeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
+    required TResult Function(int index) deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
+    TResult? Function(int index)? deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
+    TResult Function(int index)? deleteNote,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$HomeEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetAllNotes value) getAllNotes,
+    required TResult Function(_DeleteNote value) deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetAllNotes value)? getAllNotes,
+    TResult? Function(_DeleteNote value)? deleteNote,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetAllNotes value)? getAllNotes,
+    TResult Function(_DeleteNote value)? deleteNote,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,6 +125,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
+    required TResult Function(int index) deleteNote,
   }) {
     return started();
   }
@@ -128,6 +135,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
+    TResult? Function(int index)? deleteNote,
   }) {
     return started?.call();
   }
@@ -137,6 +145,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
+    TResult Function(int index)? deleteNote,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -150,6 +159,7 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetAllNotes value) getAllNotes,
+    required TResult Function(_DeleteNote value) deleteNote,
   }) {
     return started(this);
   }
@@ -159,6 +169,7 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetAllNotes value)? getAllNotes,
+    TResult? Function(_DeleteNote value)? deleteNote,
   }) {
     return started?.call(this);
   }
@@ -168,6 +179,7 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetAllNotes value)? getAllNotes,
+    TResult Function(_DeleteNote value)? deleteNote,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -224,6 +236,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getAllNotes,
+    required TResult Function(int index) deleteNote,
   }) {
     return getAllNotes();
   }
@@ -233,6 +246,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getAllNotes,
+    TResult? Function(int index)? deleteNote,
   }) {
     return getAllNotes?.call();
   }
@@ -242,6 +256,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getAllNotes,
+    TResult Function(int index)? deleteNote,
     required TResult orElse(),
   }) {
     if (getAllNotes != null) {
@@ -255,6 +270,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetAllNotes value) getAllNotes,
+    required TResult Function(_DeleteNote value) deleteNote,
   }) {
     return getAllNotes(this);
   }
@@ -264,6 +280,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetAllNotes value)? getAllNotes,
+    TResult? Function(_DeleteNote value)? deleteNote,
   }) {
     return getAllNotes?.call(this);
   }
@@ -273,6 +290,7 @@ class _$GetAllNotesImpl implements _GetAllNotes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetAllNotes value)? getAllNotes,
+    TResult Function(_DeleteNote value)? deleteNote,
     required TResult orElse(),
   }) {
     if (getAllNotes != null) {
@@ -284,6 +302,152 @@ class _$GetAllNotesImpl implements _GetAllNotes {
 
 abstract class _GetAllNotes implements HomeEvent {
   const factory _GetAllNotes() = _$GetAllNotesImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteNoteImplCopyWith<$Res> {
+  factory _$$DeleteNoteImplCopyWith(
+          _$DeleteNoteImpl value, $Res Function(_$DeleteNoteImpl) then) =
+      __$$DeleteNoteImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteNoteImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$DeleteNoteImpl>
+    implements _$$DeleteNoteImplCopyWith<$Res> {
+  __$$DeleteNoteImplCopyWithImpl(
+      _$DeleteNoteImpl _value, $Res Function(_$DeleteNoteImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteNoteImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteNoteImpl implements _DeleteNote {
+  const _$DeleteNoteImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'HomeEvent.deleteNote(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteNoteImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteNoteImplCopyWith<_$DeleteNoteImpl> get copyWith =>
+      __$$DeleteNoteImplCopyWithImpl<_$DeleteNoteImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getAllNotes,
+    required TResult Function(int index) deleteNote,
+  }) {
+    return deleteNote(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getAllNotes,
+    TResult? Function(int index)? deleteNote,
+  }) {
+    return deleteNote?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getAllNotes,
+    TResult Function(int index)? deleteNote,
+    required TResult orElse(),
+  }) {
+    if (deleteNote != null) {
+      return deleteNote(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetAllNotes value) getAllNotes,
+    required TResult Function(_DeleteNote value) deleteNote,
+  }) {
+    return deleteNote(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetAllNotes value)? getAllNotes,
+    TResult? Function(_DeleteNote value)? deleteNote,
+  }) {
+    return deleteNote?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetAllNotes value)? getAllNotes,
+    TResult Function(_DeleteNote value)? deleteNote,
+    required TResult orElse(),
+  }) {
+    if (deleteNote != null) {
+      return deleteNote(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteNote implements HomeEvent {
+  const factory _DeleteNote(final int index) = _$DeleteNoteImpl;
+
+  int get index;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DeleteNoteImplCopyWith<_$DeleteNoteImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

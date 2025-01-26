@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:note_app/core/model/note_model.dart';
 import 'package:note_app/core/services/local_storage/local_storage.dart';
+import 'package:uuid/uuid.dart';
 
 part 'note_event.dart';
 
@@ -10,6 +11,7 @@ part 'note_state.dart';
 
 class NoteBloc extends Bloc<NoteEvent, NoteState> {
   final LocalStorage _localStorage = LocalStorage();
+  final Uuid uuid = Uuid();
 
   NoteBloc() : super(NoteInitial()) {
     on<TextAddedEvent>(_addNote);
@@ -25,6 +27,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     try {
       final existingNotes = await _localStorage.getUserNotes(currentUserId.id);
       final newNote = Note(
+        // id: uuid.v4(),
         title: event.title,
         subtitle: event.subtitle,
         // color: event.color.value,
@@ -45,11 +48,13 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
     if (currentUserId == null) return;
     try {
       final existingNotes = await _localStorage.getUserNotes(currentUserId.id);
-      final index = existingNotes.indexWhere((note) => note.title == event.oldTitle);
+      final index =
+          existingNotes.indexWhere((note) => note.title == event.oldTitle);
       if (index != -1) {
         existingNotes[index] = Note(
           title: event.updatedTitle,
           subtitle: event.updatedSubtitle,
+
           // color: event.updatedColor.value,
         );
         await _localStorage.saveUserNotes(currentUserId.id, existingNotes);
