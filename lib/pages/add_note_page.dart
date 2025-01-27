@@ -21,9 +21,12 @@ class _AddNotePageState extends State<AddNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: InkWell(
           onTap: () {
             context.go('/home');
+            // temporary solution
+            context.read<HomeBloc>().add(HomeEvent.getAllNotes());
           },
           child: Ink(
             child: Container(

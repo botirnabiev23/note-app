@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:note_app/bloc/note_bloc.dart';
 import 'package:note_app/core/model/note_model.dart';
+import 'package:note_app/features/home/home_bloc.dart';
 
 class EditNotePage extends StatefulWidget {
   final Note note;
@@ -19,7 +20,7 @@ class EditNotePage extends StatefulWidget {
 class _EditNotePageState extends State<EditNotePage> {
   late TextEditingController _titleController;
   late TextEditingController _subtitleController;
-  late Color _selectedColor;
+  // late Color _selectedColor;
   bool isEditing = false;
 
   @override
@@ -27,7 +28,7 @@ class _EditNotePageState extends State<EditNotePage> {
     super.initState();
     _titleController = TextEditingController(text: widget.note.title);
     _subtitleController = TextEditingController(text: widget.note.subtitle);
-    _selectedColor = Colors.grey;
+    // _selectedColor = Colors.grey;
   }
 
   @override
@@ -41,9 +42,12 @@ class _EditNotePageState extends State<EditNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: InkWell(
           onTap: () {
             context.go('/home');
+            // temporary solution
+            context.read<HomeBloc>().add(HomeEvent.getAllNotes());
           },
           child: Ink(
             child: Container(

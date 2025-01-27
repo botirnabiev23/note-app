@@ -53,25 +53,25 @@ class _ProfilePageBodyState extends State<ProfilePageBody> {
               ),
             ),
             actions: [
-              InkWell(
-                child: Ink(
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16),
-                      ),
-                      color: Color(0xff3B3B3B),
-                    ),
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 10),
+              // InkWell(
+              //   child: Ink(
+              //     child: Container(
+              //       width: 50,
+              //       height: 50,
+              //       decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.all(
+              //           Radius.circular(16),
+              //         ),
+              //         color: Color(0xff3B3B3B),
+              //       ),
+              //       child: Icon(
+              //         Icons.edit,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(width: 10),
               InkWell(
                 onTap: () {
                   context

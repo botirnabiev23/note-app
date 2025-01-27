@@ -76,100 +76,106 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 10),
         ],
       ),
-      body: CustomScrollView(
-        slivers: [
-          BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              final notes = state.notes;
-              if (notes.isNotEmpty) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Dismissible(
-                        key: Key(notes[index].id),
-                        direction: DismissDirection.endToStart,
-                        confirmDismiss: (direction) async {
-                          final confirm = await showDialog<bool>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Confirm Delete'),
-                                content: Text(
-                                    'Are you sure you want to delete this note?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      context.pop();
-                                    },
-                                    child: Text('Cancel'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      context.pop(true);
-                                    },
-                                    child: Text('Delete'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          return confirm ?? false;
-                        },
-                        onDismissed: (direction) {
-                          context
-                              .read<HomeBloc>()
-                              .add(HomeEvent.deleteNote(notes[index]));
-                        },
-                        background: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // temporary solution
+          context.read<HomeBloc>().add(HomeEvent.getAllNotes());
+        },
+        child: CustomScrollView(
+          slivers: [
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                final notes = state.notes;
+                if (notes.isNotEmpty) {
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Dismissible(
+                          key: Key(notes[index].id),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (direction) async {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Confirm Delete'),
+                                  content: Text(
+                                      'Are you sure you want to delete this note?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        context.pop();
+                                      },
+                                      child: Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.pop(true);
+                                      },
+                                      child: Text('Delete'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return confirm ?? false;
+                          },
+                          onDismissed: (direction) {
+                            context
+                                .read<HomeBloc>()
+                                .add(HomeEvent.deleteNote(notes[index]));
+                          },
+                          background: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                            alignment: Alignment.centerRight,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 12),
+                            child: const Icon(Icons.delete, color: Colors.white),
+                          ),
+                          child: NoteItem(note: notes[index]),
+                        );
+                      },
+                      childCount: notes.length,
+                    ),
+                  );
+                }
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            context.goNamed('addNotePage');
+                          },
+                          splashColor: Colors.transparent,
+                          child: Ink(
+                            child: const Image(
+                              image: AssetImage('assets/images/add_note.png'),
                             ),
                           ),
-                          alignment: Alignment.centerRight,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 6),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 12),
-                          child: const Icon(Icons.delete, color: Colors.white),
                         ),
-                        child: NoteItem(note: notes[index]),
-                      );
-                    },
-                    childCount: notes.length,
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Create your first note!',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
                 );
-              }
-              return SliverFillRemaining(
-                hasScrollBody: false,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          context.goNamed('addNotePage');
-                        },
-                        splashColor: Colors.transparent,
-                        child: Ink(
-                          child: const Image(
-                            image: AssetImage('assets/images/add_note.png'),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Create your first note!',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
